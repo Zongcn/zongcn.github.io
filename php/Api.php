@@ -92,7 +92,7 @@ class ApiController extends Yaf_Controller_Abstract
 
 /**
  * @api {get} /index.php/api/entry?mothod=user.get&id=1 获取用户信息
- * @apiName GetUser
+ * @apiName Get
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiSuccessExample {json} Success-Response:
