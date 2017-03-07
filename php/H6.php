@@ -50,3 +50,33 @@ class Application
 
 	public function onUser() {}
 }
+
+function daddslashes($string, $force = 0, $strip = FALSE) {
+	if(!MAGIC_QUOTES_GPC || $force) {
+		if(is_array($string)) {
+			foreach($string as $key => $val) {
+				$string[$key] = daddslashes($val, $force, $strip);
+			}
+		} else {
+			$string = addslashes($strip ? stripslashes($string) : $string);
+		}
+	}
+	return $string;
+}
+
+function phpcharset($data, $to) {
+	if(is_array($data)){
+		foreach($data as $key => $val){
+			$data[$key] = phpcharset($val, $to);
+		}
+	}else{
+		$encode_array = array('ASCII', 'UTF-8', 'GBK', 'GB2312', 'BIG5');
+		$encoded = mb_detect_encoding($data, $encode_array);
+		$to = strtoupper($to);
+		if($encoded != $to){
+			$data = mb_convert_encoding($data, $to, $encoded);
+			$encoded = mb_detect_encoding($data, $encode_array);
+		}
+	}
+	return $data;
+}
