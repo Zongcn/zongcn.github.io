@@ -98,29 +98,50 @@ class ApiController extends Yaf_Controller_Abstract
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
- *		'ret':200,
- *		'data': {
- *			'code' => 0,
- *			'info': {
- * 				
- *			},
- *			'msg': '获取成功'			
- *		},
- *		'msg': ''
+ *	'ret':200,
+ *	'data': {
+ *	    'code' => 0,
+ *	    'info': {},
+ *	    'msg': '获取成功'			
+ *	},
+ *	'msg': ''
  * }
  */
 namespace Api\Controllers;
 
-class User
+class Base
+{
+    private $_data = array();
+
+    public function __set($name, $value)
+    {
+        $this->_data[$name] = $value;
+
+    }
+
+    protected function getData()
+    {
+        return $this->_data;
+    }
+
+    protected function getParams()
+    {
+        return $this->_data['args'];
+    }
+}
+
+class User extends Base
 {
     public function get()
     {
-		$data = array(
-			'code' => 0,
-			'info' => array(),
-			'msg' => '获取成功' 
-		);
-		return $data;
+	$params = $this->getParams();
+	$id = $params['id'];
+	$data = array(
+	    'code' => 0,
+	    'info' => array(),
+	    'msg' => '获取成功' 
+	);
+	return $data;
     }
 }
 
