@@ -116,7 +116,6 @@ class Base
     public function __set($name, $value)
     {
         $this->_data[$name] = $value;
-
     }
 
     protected function getData()
